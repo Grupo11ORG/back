@@ -32,7 +32,11 @@ route.post(
     validar_jwt,
     verificarActivo,
     (req, res, next) => {
-      verificarRolIngreso(req, res, next, ["administrador", "colaborador"]);
+      verificarRolIngreso(req, res, next, [
+        "administrador",
+        "comun",
+        "profesional",
+      ]);
     },
   ],
   createUser

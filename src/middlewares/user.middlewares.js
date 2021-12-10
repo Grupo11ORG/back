@@ -41,7 +41,7 @@ const verifyPasswordInUser = async (req, res, next) => {
       await User.findByIdAndUpdate(id, { password }, { new: true });
 
       return res.json({
-        msg: "La contraseña se ah actualizado",
+        msg: "La contraseña se ha actualizado",
       });
     }
   }

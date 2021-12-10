@@ -22,20 +22,18 @@ controller.getProfesional = async (req, res) => {
 };
 
 controller.createProfesional = async (req, res) => {
-  const { personal_info, contact_info, academic_info, professional_info } =
-    req.body;
+  const { datos_personales, info_profesional, info_lugar_trabajo } = req.body;
 
   try {
     const profesionales = new Profesionales({
-      personal_info,
-      contact_info,
-      academic_info,
-      professional_info,
+      datos_personales,
+      info_profesional,
+      info_lugar_trabajo,
     });
     await profesionales.save();
 
     res.json({
-      msg: "profesional agregado",
+      msg: "persona agregada",
     });
   } catch (error) {
     console.log(error);
@@ -47,40 +45,34 @@ controller.createProfesional = async (req, res) => {
 
 controller.updateProfesional = async (req, res) => {
   const { id } = req.params;
-  const { personal_info, contact_info, academic_info, professional_info } =
-    req.body;
+  const { datos_personales, contact_info, info_lugar_trabajo } = req.body;
   const update = {};
 
-  if (personal_info) {
-    update.personal_info = personal_info;
+  if (datos_personales) {
+    update.datos_personales = datos_personales;
   }
 
   if (contact_info) {
-    update.contact_info = contact_info;
+    update.info_profesional = contact_info;
   }
 
-  if (academic_info) {
-    update.academic_info = academic_info;
-  }
-
-  if (professional_info) {
-    update.professional_info = professional_info;
+  if (info_lugar_trabajo) {
+    update.info_lugar_trabajo = info_lugar_trabajo;
   }
 
   const execute_validation =
-    update.personal_info ||
-    update.contact_info ||
-    update.academic_info ||
-    update.professional_info;
+    update.datos_personales ||
+    update.info_profesional ||
+    update.info_lugar_trabajo;
 
   if (execute_validation) {
     try {
       await Profesionales.findByIdAndUpdate(id, update, {
         new: true,
       });
-      return res.json({ msg: "Datos de profesional actualizados" });
+      return res.json({ msg: "Datos actualizados" });
     } catch (error) {
-      return res.status(401).json({ msg: "Error al actualizar profesional" });
+      return res.status(401).json({ msg: "Error al actualizar" });
     }
   } else {
     res.status(401).json({
@@ -96,11 +88,11 @@ controller.deleteProfesional = async (req, res) => {
     await Profesionales.findByIdAndDelete(id);
 
     res.json({
-      msg: "el profesional se elimino del sistema",
+      msg: "Se eliminó correctamente",
     });
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ msg: "Error al eliminar profesional" });
+    console.log(error);
+    res.status(500).json({ msg: "Error al eliminar" });
   }
 };
 

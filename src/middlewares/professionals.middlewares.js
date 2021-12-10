@@ -1,55 +1,49 @@
 const middlewares = {};
 
 middlewares.professionalExtractAtributes = (req, res, next) => {
-  let { personal_info, contact_info, academic_info, professional_info } =
-    req.body;
+  let { datos_personales, info_profesional, info_lugar_trabajo } = req.body;
 
-  const { fullname, birthdate, dni, gender, country, state, address, hobbies } =
-    personal_info;
-
-  const { phone, email, social_media } = contact_info;
-
-  const { primary, secondary, tertiary, universitary, certifications } =
-    academic_info;
-
-  const { summary, work_exp, skills, languages } = professional_info;
-
-  const extracted_personal_info = {
-    fullname,
-    birthdate,
+  const {
+    nombre_completo,
+    fecha_nacimiento,
     dni,
-    gender,
-    country,
-    state,
-    address,
-    hobbies,
-  };
-
-  const extracted_contact_info = {
-    phone,
+    sexo,
+    telefono,
     email,
-    social_media,
+    es_profesional,
+  } = datos_personales;
+
+  const { certificaciones, img_certif, rubros } = info_profesional;
+
+  const { dias_atencion, horario_atencion, direccion, marcador } =
+    info_lugar_trabajo;
+
+  const extracted_datos_personales = {
+    nombre_completo,
+    fecha_nacimiento,
+    dni,
+    sexo,
+    telefono,
+    email,
+    es_profesional,
   };
 
-  const extracted_academic_info = {
-    primary,
-    secondary,
-    tertiary,
-    universitary,
-    certifications,
+  const extracted_info_profesional = {
+    certificaciones,
+    img_certif,
+    rubros,
   };
 
-  const extracted_professional_info = {
-    summary,
-    work_exp,
-    skills,
-    languages,
+  const extracted_info_lugar_trabajo = {
+    dias_atencion,
+    horario_atencion,
+    direccion,
+    marcador,
   };
 
-  personal_info = extracted_personal_info;
-  contact_info = extracted_contact_info;
-  academic_info = extracted_academic_info;
-  professional_info = extracted_professional_info;
+  datos_personales = extracted_datos_personales;
+  info_profesional = extracted_info_profesional;
+  info_lugar_trabajo = extracted_info_lugar_trabajo;
 
   next();
 };

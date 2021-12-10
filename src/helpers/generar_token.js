@@ -6,7 +6,7 @@ const generar_jwt = (id = "") => {
 
     jwt.sign(payload, process.env.SECRET, (err, token) => {
       if (err) {
-        reject("Error pa");
+        reject("Error pa" + err);
       }
       resolve(token);
     });
